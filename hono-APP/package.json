@@ -10,6 +10,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@prisma/client": "^6.10.1",
     "hono": "^4.8.3",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
