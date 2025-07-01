@@ -4,7 +4,7 @@ import '../styles/App.module.css';
 interface PageChangeProps {
     // 定义页码变化组件的属性
   currentPage: number;
-  itemsPerPage: number; // 可选属性，表示每页显示的条目数
+  itemsPerPage: number; 
   totalItems: number;
   onPageChange: (page: number) => void;
 }
@@ -40,13 +40,23 @@ const PageChange: React.FC<PageChangeProps> = ({
             onPageChange(currentPage + 1);
         }
     }
+    const handleToPage = () => {
+        const inputElement = document.getElementById('page-input') as HTMLInputElement;
+        const page = Number(inputElement.value);
+        if(page >= 1 && page <= totalPages) {
+            onPageChange(page);
+        }
+    }
   return (
-    <div className="page-change">
+    <div className='pageChange'>
         <button onClick={() => handleFirstPage()} disabled={currentPage === 1}> 第一页 </button>
       <button onClick={() => handlePrevPage()} disabled={currentPage === 1}> 上一页 </button>
       <span>第 {currentPage} 页 / {totalPages} 页</span>
       <button onClick={() => handleNextPage()} disabled={currentPage === totalPages}> 下一页 </button>
       <button onClick={() => handleLastPage()} disabled={currentPage === totalPages}> 最后一页 </button>
+      <label htmlFor="page-input">跳转到页码:</label>
+      <input id="page-input" type="number" min="1" max={totalPages} value={currentPage} onChange={(e) => onPageChange(Number(e.target.value))} />
+      <button onClick={() => handleToPage()}>跳转</button>
     </div>
   );
 };
