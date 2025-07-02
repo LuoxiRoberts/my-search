@@ -3,6 +3,7 @@
 import { PrismaClient } from '@prisma/client';
 import { parseXlsxFile } from '../utils/xlsxParser'; 
 import { Hono } from 'hono'; 
+import importDataFromExcel from './DataService'; // 引入DataService中的导入函数
 
 const app = new Hono();
 const prisma = new PrismaClient();

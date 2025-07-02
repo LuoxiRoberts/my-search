@@ -40,6 +40,7 @@ const PageChange: React.FC<PageChangeProps> = ({
             onPageChange(currentPage + 1);
         }
     }
+    //跳转到指定页码的处理函数
     const handleToPage = () => {
         const inputElement = document.getElementById('page-input') as HTMLInputElement;
         const page = Number(inputElement.value);
