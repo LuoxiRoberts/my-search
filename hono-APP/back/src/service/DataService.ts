@@ -1,7 +1,6 @@
 //从 Excel 文件导入数据到数据库
 import { Hono } from "hono";
 import { PrismaClient } from "@prisma/client";
-import { parseXlsxFile } from "../utils/xlsxParser";
 import * as XLSX from "xlsx"; // 引入xlsx库
 
 const app = new Hono();
