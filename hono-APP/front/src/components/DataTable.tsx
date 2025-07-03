@@ -16,7 +16,6 @@ export const formatDate = (date: Date | string): string => {
 }
 
 const DataTable: React.FC<DataTableProps> = ({ data = [] }) => { 
-  console.log('DataTable received data:', data); // 打印接收到的数据
   return (
       <table className={styles['data-table']}> 
         <thead>
@@ -37,8 +36,8 @@ const DataTable: React.FC<DataTableProps> = ({ data = [] }) => {
               <tr key={item.id}>
                 <td>{item.id}</td>
                 <td>{item.projectName}</td>
-                <td>{formatDate(item.createAt)}</td>
-                <td>{formatDate(item.updateAt)}</td>
+                <td>{formatDate(item.createdAt)}</td>
+                <td>{formatDate(item.updatedAt)}</td>
               </tr>
             ))
           )}

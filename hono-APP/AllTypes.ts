@@ -2,8 +2,8 @@
 export interface Data { // 定义 Data 接口，表示数据的结构。
     id : number;
     projectName : string;
-    createAt : Date | string; 
-    updateAt : Date | string; 
+    createdAt : Date | string; 
+    updatedAt : Date | string; 
 }
 
 export interface QueryParams { // 定义 QueryParams 接口，表示查询参数的结构。
