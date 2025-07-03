@@ -16,16 +16,18 @@ interface QueryConditions{
 app.get("/", async (c) => {
     const page = Number(c.req.query("page")) || 1; 
     const pageSize = Number(c.req.query("pageSize")) || 10;
-    const search = c.req.query("search") || "";
+    const searchQuery = c.req.query("searchQuery") || "";
     const provinceId = Number(c.req.query("provinceId"));
     const cityId = Number(c.req.query("cityId"));
     const countyId = Number(c.req.query("countyId"));
     try{
         const query: QueryConditions = {};
-        if (search) { query.projectName = { contains: search, mode: "insensitive" };}
+        if (searchQuery) { query.projectName = { contains: searchQuery, mode: "insensitive" };}
         if (provinceId && !isNaN(provinceId)) { query.provinceId = provinceId; }
         if (cityId && !isNaN(cityId)) { query.cityId = cityId; }
         if (countyId && !isNaN(countyId)) { query.countyId = countyId; }
+
+
 
         const data = await prisma.data.findMany({
             skip: (page - 1) * pageSize,
