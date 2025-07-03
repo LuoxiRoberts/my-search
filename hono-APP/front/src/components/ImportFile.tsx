@@ -1,6 +1,6 @@
 //这个文件定义了前端页面的上传文件的组件
 import React, { useState } from 'react';
-import '../styles/App.module.css';
+import styles from '../styles/App.module.css'; 
 import axios from 'axios';
 
 interface UploadFileProps {

@@ -28,8 +28,8 @@ app.get("/cities", async(c) => {
             return c.json({ error: "provinceId 不能为空" }, 400);
             }
         const cities = await prisma.city.findMany({
-            where : { provinceId},
-            select : { id : true , name : true},
+            where : { provinceId },
+            select : { id : true , name : true },
             orderBy : { id : "asc" }
         })
         return c.json(cities);
@@ -42,7 +42,7 @@ app.get("/cities", async(c) => {
 //定义了县区的路由
 app.get("/counties" , async (c) => {
     try{
-        const cityId = Number(c.req.query("CityId"));
+        const cityId = Number(c.req.query("cityId"));
         if (!cityId || isNaN(cityId)) {
             return c.json({ error: "cityId 不能为空" }, 400);
         }

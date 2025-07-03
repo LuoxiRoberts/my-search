@@ -1,7 +1,7 @@
 //此页为前端页面显示的总页
 
 import React , { useState , useEffect }from 'react';
-import '../styles/App.module.css';
+import styles from '../styles/App.module.css'; 
 import SearchBar from '../components/SearchBar';
 import UploadFile from '../components/ImportFile';
 import DataTable from '../components/DataTable';
@@ -46,18 +46,18 @@ const Home: React.FC = () => {
     useEffect(() => {
         const loadData = async () => {
             try {
-                const response = await axios.get('/api/data', {
+                const response = await axios.get('/api/data' , {
                     params: {
-                        searchQuery,
-                        provinceId : provinceId || undefined,
-                        cityId : cityId || undefined,
-                        countyId : countyId || undefined,
-                        page: currentPage,
-                        itemsPerPage
-                    }
+                    searchQuery,
+                    provinceId: provinceId || undefined,
+                    cityId: cityId || undefined,
+                    countyId: countyId || undefined,
+                    page: currentPage,
+                    itemsPerPage
+                    },
                 });
-                setData(response.data.items);
-                setTotalItems(response.data.totalItems);
+                setData( response.data.data );
+                setTotalItems( response.data.totalItems );
             } catch (error) {
                 console.error('获取数据失败:', error);
                 setData([]);
@@ -66,16 +66,22 @@ const Home: React.FC = () => {
         };
         loadData();
     }, [searchQuery, currentPage, itemsPerPage, provinceId, cityId, countyId]);
+
+    const handleSearch = (query: string) => {
+        setSearchQuery(query);
+        setCurrentPage(1);
+    }
+
     return(
-    <div className='home-page'>
+    <div className='home'>
         <h1>项目查询系统</h1>
-        <div className='filter-container'>
+        <div className={styles['filter-container']}>
             <LocationSelector 
                 onProvinceChange={(id) => setProvinceId(id)}
                 onCityChange={(id) => setCityId(id)}
                 onCountyChange={(id) => setCountyId(id)}
             />
-            <SearchBar onSearch={setSearchQuery} />
+            <SearchBar onSearch={handleSearch} />
             <UploadFile onUpload={handleFileUpload} />
             <>
             <DataTable data={data} />

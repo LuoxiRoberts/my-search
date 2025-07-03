@@ -13,18 +13,21 @@ h1 {
   text-align: center;
   font-weight: 600;
   letter-spacing: 1px;
-  margin-bottom: 32px;
+  margin-bottom: 20px;
+  font-size: 24px;
 }
 
 .data-table {
   width: 100%;
-  border-collapse: separate;
+  max-width: 1200px;
+  margin: 20px auto;
+  border-collapse: collapse;
   border-spacing: 0;
   margin-top: 24px;
   background: #fafbfc;
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .data-table th, .data-table td {
@@ -84,8 +87,9 @@ h1 {
 .pagination {
   display: flex;
   justify-content: center;
-  margin-top: 32px;
-  gap: 8px;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
 }
 
 .pagination button {
@@ -142,10 +146,15 @@ form button[type="submit"]:hover {
 
 .filter-container {
   display: flex;
-  gap: 12px;
+  gap: 16px;
   justify-content: center;
   align-items: center;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.filter-container > * {
+  margin: 5px;
 }
 
 .custom-select {
@@ -166,4 +175,11 @@ form button[type="submit"]:hover {
 .custom-select:focus {
   outline: none;
   border-color: #4CAF50; /* 聚焦时的边框颜色 */
+}
+
+.home-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
 }

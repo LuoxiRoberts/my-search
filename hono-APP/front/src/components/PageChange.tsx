@@ -1,5 +1,5 @@
 import React from "react";
-import '../styles/App.module.css'; 
+import styles from '../styles/App.module.css'; 
 
 interface PageChangeProps {
     // 定义页码变化组件的属性
@@ -49,7 +49,7 @@ const PageChange: React.FC<PageChangeProps> = ({
         }
     }
   return (
-    <div className='pageChange'>
+    <div className={styles.pagination}>
         <button onClick={() => handleFirstPage()} disabled={currentPage === 1}> 第一页 </button>
       <button onClick={() => handlePrevPage()} disabled={currentPage === 1}> 上一页 </button>
       <span>第 {currentPage} 页 / {totalPages} 页</span>

@@ -31,16 +31,16 @@ app.get("/", async (c) => {
             skip: (page - 1) * pageSize,
             take: pageSize,
             orderBy: { id: "asc" },
-            where: Object.keys(query).length > 0 ? query : undefined,
+            where: Object.keys(query).length ? query : undefined,
             include: {
-                province: true,
-                city: true,
-                county: true
-            }
+                province: { select: { name: true } },
+                city: { select: { name: true } },
+                county: { select: { name: true } },
+            },
         });
 
         const totalItems = await prisma.data.count({ 
-            where: Object.keys(query).length > 0? query : undefined 
+            where: Object.keys(query).length ? query : undefined 
         });
 
         return c.json({ data, totalItems });

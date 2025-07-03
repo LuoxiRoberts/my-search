@@ -21,6 +21,7 @@ export const importRegionFromExcel = async ( filePath: string ) => {
         if (!code || !name) {
             continue; // 跳过无效行
         }
+        //省份
         if(/^\d{6}$/.test(code) && code.endsWith('0000')){
             currentProvince = await prisma.province.upsert({
                 where: { name },
@@ -30,24 +31,34 @@ export const importRegionFromExcel = async ( filePath: string ) => {
             console.log(`已导入省份: ${name}`);
             currentCity = null;
         }
+        //市区
         else if (/^\d{6}$/.test(code) && code.endsWith('00') && !code.endsWith('0000')) {
-            currentCity = await prisma.city.upsert({
-                where: { name },
-                update: {},
-                create: { name, provinceId: currentProvince?.id }
-            });
-            console.log(`已导入市区: ${name}`);
+            if(currentProvince){
+                currentCity = await prisma.city.upsert({
+                    where: { name_provinceId: { name, provinceId: currentProvince?.id } },
+                    update: {},
+                    create: { name, provinceId: currentProvince?.id }
+                });
+                console.log(`已导入市区: ${name}`);
+            }else{
+                console.error(`省份未导入，无法导入市区: ${name}`);
+            }
+            
         }
+        //县区
         else if (/^\d{6}$/.test(code) && !code.endsWith('00')) {
-            await prisma.county.upsert({
-                where: { name },
-                update: {},
-                create: { name, cityId: currentCity?.id }
-            });
+            if(currentCity){
+                await prisma.county.upsert({
+                    where: { name_cityId: { name, cityId: currentCity.id } },
+                    update: {},
+                    create: { name, cityId: currentCity?.id }
+                });
             console.log(`已导入县区: ${name}`);
+            }else{
+                console.error(`市区未导入，无法导入县区: ${name}`);
+            }
         }
     }
-
     console.log('所有地区导入完成');
 }
 

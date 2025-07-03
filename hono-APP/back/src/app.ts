@@ -1,4 +1,4 @@
-import { Hono } from "hono";
+import { Hono , Context } from "hono";
 import { serve} from "@hono/node-server";
 import dataRoutes from './routes/Data';
 import regionRoutes from './routes/Region';

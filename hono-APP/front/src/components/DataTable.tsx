@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Data } from '../../../AllTypes';
-import '../styles/App.module.css'; 
+import styles from '../styles/App.module.css';
 
 interface DataTableProps {
   data: Data[];
@@ -15,30 +15,36 @@ export const formatDate = (date: Date | string): string => {
   return d.toLocaleDateString();
 }
 
-const DataTable: React.FC<DataTableProps> = ({ data }) => { 
+const DataTable: React.FC<DataTableProps> = ({ data = [] }) => { 
+  console.log('DataTable received data:', data); // 打印接收到的数据
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>项目ID</th>
-          <th>项目名称</th>
-          <th>创建时间</th>
-          <th>更新时间</th>
-        </tr>
-      </thead>
-      <tbody>
-        {data.length === 0 && <tr><td colSpan={4} className='no-data'>暂无数据</td></tr>}
-        {data.map(item => (
-          <tr key={item.id}>
-            <td>{item.id}</td>
-            <td>{item.ProjectName}</td>
-            <td>{formatDate(item.CreateAt)}</td>
-            <td>{formatDate(item.UpdateAt)}</td>
+      <table className={styles['data-table']}> 
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>项目名称</th>
+            <th>创建时间</th>
+            <th>更新时间</th> 
           </tr>
-        ))}
-      </tbody>
-    </table>
-  );
+        </thead>
+        <tbody>
+          {data.length === 0 ? ( // 如果数据为空，显示“暂无数据”。
+            <tr>
+              <td colSpan={4} className={styles['no-data']}>暂无数据</td> 
+            </tr>
+          ) : (
+            data.map(item => ( 
+              <tr key={item.id}>
+                <td>{item.id}</td>
+                <td>{item.projectName}</td>
+                <td>{formatDate(item.createAt)}</td>
+                <td>{formatDate(item.updateAt)}</td>
+              </tr>
+            ))
+          )}
+        </tbody>
+      </table>
+    );
 };
 
 export default DataTable;
