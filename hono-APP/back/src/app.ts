@@ -10,6 +10,8 @@ app.route('/api/data', dataRoutes);
 app.route('/api/region', regionRoutes);
 app.route('/api/import-file', importFileRoutes);
 
+app.get('/', async (c) => c.text('欢迎使用我的搜索应用'));
+
 serve({
     fetch : app.fetch,
     port : 3001

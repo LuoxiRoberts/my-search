@@ -29,13 +29,13 @@ const importDataFromExcel = async (filePath: string) => {
             provinceId = province?.id;
         }
 
-        if (cityName) {
-            const city = await prisma.city.findUnique({ where: { name: cityName } });
+        if (cityName && provinceId) {
+            const city = await prisma.city.findUnique({ where: { name_provinceId: { name: cityName, provinceId } } });
             cityId = city?.id;
         }
 
-        if (countyName) {
-            const county = await prisma.county.findUnique({ where: { name: countyName } });
+        if (countyName && cityId) {
+            const county = await prisma.county.findUnique({ where: { name_cityId: { name: countyName, cityId } } });
             countyId = county?.id;
         }
 
@@ -53,7 +53,7 @@ const importDataFromExcel = async (filePath: string) => {
     const BASE_SIZE = 1000;
     for(let i = 0; i < data.length; i += BASE_SIZE){
         const batch = data.slice(i, i + BASE_SIZE);
-        await prisma.project.createMany({
+        await prisma.data.createMany({
             data: batch,
             skipDuplicates: true // 跳过重复数据
         });

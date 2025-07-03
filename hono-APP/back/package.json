@@ -1,0 +1,20 @@
+{
+  "name": "hono-backend",
+  "version": "1.0.0",
+  "main": "src/app.js",
+  "scripts": {
+    "dev" : "ts-node src/app.ts",
+    "start": "node dist/app.js"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.10.1",
+    "hono": "^4.8.3",
+    "ioredis": "^5.6.1",
+    "multer": "^2.0.1",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  }
+}

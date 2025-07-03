@@ -1,12 +1,16 @@
 //这个文件定义了前端页面的上传文件的组件
 import React, { useState } from 'react';
 import '../styles/App.module.css';
-import  importDataFromExcel  from '../../../back/src/service/DataService'; // 假设这个函数在service目录下
 import axios from 'axios';
 
-const UploadFile: React.FC = () => {
+interface UploadFileProps {
+    onUpload : (file : File) => Promise<void>;
+}
+
+const UploadFile: React.FC<UploadFileProps> = (onUpload) => {
+    // 定义上传状态的消息和上传文件的状态
     const [file, setFile] = useState<File | null>(null);
-    const [message, setMessage] = useState<string>(''); // 定义上传状态的消息
+    const [message, setMessage] = useState<string>(''); 
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         // 监听文件上传的事件

@@ -6,7 +6,7 @@ import fs from 'fs';
 
 const app = new Hono();
 
-app.post('/upload', async (c) => {
+app.post('/', async (c) => {
     const body = await c.req.parseBody();
     const file = body['file'];
 
